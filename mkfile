@@ -1,11 +1,12 @@
-MK-INDEXBAM_TARGETS=`{./targets}
+MK_INDEXBAM_TARGETS=`{./targets}
 
-mk-indexbam:VE:	$MK-INDEXBAM_TARGETS
+mk_indexbam:VE:	$MK_INDEXBAM_TARGETS
 
 results/indexbam/%.sorted.bam:D:	data/%.bam
 	mkdir -p `dirname $target`
-	samtools sort -f $prereq \
-		$target
+	samtools sort -o $target \
+		-O bam \
+		$prereq
 results/indexbam/%.sorted.bam.bai:D:	results/indexbam/%.sorted.bam
 	mkdir -p `dirname $target`
-	samtools index $prereq
+	samtools index -b $prereq
